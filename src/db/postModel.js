@@ -7,7 +7,7 @@ const postSchema = new mongoose.Schema({
     unique: true,
   },
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   text: {
