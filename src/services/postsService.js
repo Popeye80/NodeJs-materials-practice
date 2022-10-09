@@ -1,8 +1,12 @@
 const {Post} = require('../db/postModel');
 const {WrongParametersError} = require('../helpers/errors');
 
-const getPosts = async (userId) => {
-  const posts = await Post.find({userId});
+const getPosts = async (userId, {skip, limit}) => {
+  const posts = await Post.find({userId})
+      .select({__v: 0})
+      .skip(skip)
+      .limit(limit)
+      .sort('topic');
   return posts;
 };
 
@@ -22,8 +26,10 @@ const addPost = async ({topic, text}, userId) => {
 };
 
 const changePostById = async (postId, {topic, text}, userId) => {
-  await Post.findOneAndUpdate({_id: postId, userId},
-      {$set: {topic, text}});
+  await Post.findOneAndUpdate(
+      {_id: postId, userId},
+      {$set: {topic, text}}
+  );
 };
 
 const deletePostById = async (postId, userId) => {
