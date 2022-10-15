@@ -3,6 +3,10 @@ const {NotAuthorizedError} = require('../helpers/errors');
 
 const authMiddleware = (req, res, next) => {
   try {
+    const {authorization} = req.headers;
+    if (!authorization) {
+      next(new NotAuthorizedError('Please,provide a token'));
+    }
     const [, token] = req.headers['authorization'].split(' ');
     if (!token) {
       next(new NotAuthorizedError('Please,provide a token'));
