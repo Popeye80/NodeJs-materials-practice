@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  confirmed: {
+    type: Boolean,
+    default: false,
+  },
   firstName: String,
   lastName: String,
   title: String,
@@ -22,9 +26,9 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', async function() {
-  if (this.isNew) {
+  if (this.isNew || this.isModified) {
     this.password = await bcrypt.hash(this.password, 10);
-  };
+  }
 });
 
 const User = mongoose.model('User', userSchema);
