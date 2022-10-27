@@ -1,10 +1,10 @@
 const {getPostById} = require('../src/services/postsService');
-const {WrongParametersError} = require('../src/helpers/errors');
+// const {WrongParametersError} = require('../src/helpers/errors');
 const {Post} = require('../src/db/postModel');
-const {JsonWebTokenError} = require('jsonwebtoken');
+// const {JsonWebTokenError} = require('jsonwebtoken');
 
 describe('Posts Service getPostById test', () => {
-  it('should return post data by providen ID', async () => {
+  it('should return post data by provider ID', async () => {
     const mPostId = '1';
     const mUserId = '2';
     const post = {
